@@ -8,3 +8,6 @@ class CreateReviews < ActiveRecord::Migration
     end
   end
 end
+
+
+# bin/rails g migration AddDescriptionToRestaurants description:text
