@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'restaurants' => 'restaurants#index'
   resources :restaurants do
     resources :reviews
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  root to: "restaurants#index"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
