@@ -27,9 +27,7 @@ feature 'reviewing' do
     select '3', from: 'Rating'
     click_button 'Leave Review'
     click_link 'Review KFC'
-    fill_in "Thoughts", with: "Meh"
-    select '2', from: 'Rating'
-    click_button 'Leave Review'
+
     expect(page).to have_content 'You have already reviewed this restaurant'
     expect(page).not_to have_content 'Meh'
   end
