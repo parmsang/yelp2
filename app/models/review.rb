@@ -1,4 +1,7 @@
 class Review < ActiveRecord::Base
-  has_many :reviews, dependent: :destroy
+
+  belongs_to :user
+  belongs_to :restaurant
+  
   validates :rating, inclusion: (1..5)
 end
