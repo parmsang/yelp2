@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+  
   context 'no restaurant have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -19,14 +20,27 @@ feature 'restaurants' do
       expect(page).not_to have_content('No restaurants yet')
     end
   end
+  before do 
+    visit '/'
+    click_link 'Sign up' 
+    fill_in 'Email', with: 'test@email.com'
+    fill_in 'Password', with: 'randomness'
+    fill_in 'Password confirmation', with: 'randomness'
+    click_button 'Sign up'
+  end
   context 'creating restaurants' do
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
-      visit '/restaurants'
+      visit '/'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
       click_button 'Create Restaurant'
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
+    end
+    scenario 'only logged in users are able to add new restaurants' do
+      click_link 'Sign out'
+      click_link 'Add a restaurant'
+      expect(page).to have_content "You need to sign in or sign up before continuing."
     end
     context 'an invalid restaurant' do
       it 'does not let you submit a name that is too short' do
