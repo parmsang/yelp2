@@ -8,8 +8,13 @@
     </ul>
   </section>
 <% end %>
-<%= form_for @restaurant do |f| %>
+
+<%= render "form" %>
+
+
+
+<!-- <%= form_for @restaurant do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.submit %>
-<% end %>
+<% end %> -->
