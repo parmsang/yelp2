@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'restaurants' do
-  
+
   context 'no restaurant have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -20,9 +20,9 @@ feature 'restaurants' do
       expect(page).not_to have_content('No restaurants yet')
     end
   end
-  before do 
+  before do
     visit '/'
-    click_link 'Sign up' 
+    click_link 'Sign up'
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Password', with: 'randomness'
     fill_in 'Password confirmation', with: 'randomness'
@@ -42,6 +42,16 @@ feature 'restaurants' do
       click_link 'Add a restaurant'
       expect(page).to have_content "You need to sign in or sign up before continuing."
     end
+
+    scenario 'creates restaurant with an image thumbnail' do
+      visit '/'
+      click_link 'Add a restaurant'
+      fill_in 'Name', with: 'KFC'
+      page.attach_file('restaurant[image]', Rails.root + 'spec/support/image.jpg')
+      click_button 'Create Restaurant'
+      expect(page).to have_xpath("//img[contains(@src,'image.jpg')]")
+    end
+
     context 'an invalid restaurant' do
       it 'does not let you submit a name that is too short' do
         visit '/restaurants'

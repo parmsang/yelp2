@@ -1,7 +1,10 @@
 <% if @restaurants.any? %>
   <% @restaurants.each do |restaurant| %>
     <h2><%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
+    <% if restaurant.image_file_name %>
+
         <%= image_tag restaurant.image.url(:thumb) %>
+    <% end %>
         <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
         <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
         <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
